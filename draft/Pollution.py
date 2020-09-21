@@ -3,6 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from download import download
+import statsmodels.api as sm
+import scipy as sp
+from statsmodels.formula.api import ols
 
 url = "http://josephsalmon.eu/enseignement/datasets/Mesure_journaliere_Region_Occitanie_Polluants_Principaux.csv"
 path_target = "./Mesure_journaliere_Region_Occitanie_Polluants_Principaux.csv"
@@ -31,3 +34,9 @@ print(df.describe())
 
 #%%
 #Anova
+poll = ols('valeur_originale ~ C(nom_com)',data=df).fit()
+print(poll.summary())
+pollution = sm.stats.anova_lm(poll, typ=2) 
+print(pollution)
+fig, ax = plt.subplots()
+_, (__, ___, r) = sp.stats.probplot(poll.resid, plot=ax, fit=True)
