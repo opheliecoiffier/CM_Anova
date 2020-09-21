@@ -1,0 +1,27 @@
+# tex generated files
+*.aux
+*.bcf
+*.log
+*.nav
+*.out
+*.xml
+*.snm
+*.gz
+*.toc
+
+
+# jupyter files
+.ipynb_checkpoints
+
+
+
+# datasets
+*.csv
+bicycle.txt
+data
+
+
+
+# Mac OS X trash
+*.DS_Store
+
