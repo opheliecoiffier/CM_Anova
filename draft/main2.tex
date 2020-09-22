@@ -1,0 +1,371 @@
+\documentclass[unknownkeysallowed]{beamer}
+\usepackage[french,english]{babel}
+\usepackage{./sty/beamer_js}
+\usepackage{./sty/shortcuts_js}
+\usepackage{csquotes}
+\usepackage{stmaryrd}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{systeme}
+\usepackage{enumerate}
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%             Headers               %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\bigskip
+\bigskip
+\begin{center}{
+\LARGE\color{marron}
+\textbf{HMMA 307 : Advanced Linear Modeling}
+\textbf{ }\\
+\vspace{0.5cm}
+}
+
+\color{marron}
+\textbf{Chapter 3 : ANOVA}
+\end{center}
+
+\vspace{0.5cm}
+
+\begin{center}
+\textbf{COIFFIER OPHELIE \ GAIZI IBRAHIM \ LEFORT TANGUY } \\
+\vspace{0.1cm}
+\url{https://github.com/opheliecoiffier/CM_Anova}\\
+\vspace{0.5cm}
+Université de Montpellier \\
+\end{center}
+
+\centering
+\includegraphics[width=0.13\textwidth]{logo.png}
+
+\end{frame}
+\begin{frame}
+\begin{alertblock}{statistical model}
+
+$$
+y_{ij}=\mu_i+\epsilon_{ij}
+$$
+with : $$ \epsilon_{ij} : iid ~\mathcal{N}(0,\sigma^2) $$
+and : $$\mathcal{C}ov(\epsilon_{ij},\epsilon_{i'j'})=\sigma^2 \epsilon_{ij} \epsilon_{i'j'} $$
+and : $$\bar{y_n}= \frac{1}{n} \sum\limits_{i=1}^I \sum\limits_{j=1}^{n_i}y_{ij} ; i\in \llbracket 1,I \rrbracket $$
+ \begin{itemize}
+        \item $\epsilon{ij}$ : noise
+        \item $Y_{ij}$ is the $j^{th}$measure for the modality
+        \item $\bar{y_n}$ is the average of $\bar{y}$
+        \item we sometimes notice that : $\mu^*_i=\mu^*+\alpha^*_i $
+    \end{itemize}
+\end{alertblock}
+\vspace{0.4cm}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{alertblock}{Remark:}
+if we have an estimator for $\mu$ and $\alpha$ noted $\hat{\mu}$ and $\hat{\alpha}$, then $\hat{\mu_i}$ is an estimator with : $$\hat{\mu_i}=  \hat{\mu} +  \hat{\alpha_i}  $$
+and $$ (\hat{\mu_1},....,\hat{\mu_I}) \in {argmin}_{(\mu_1,....,\mu_I)\in \mathbb{R}^I} \frac{1}{2} \sum\limits_{i=1}^I \sum\limits_{j=1}^{n_i}(y_{ij}-\mu_i)^2$$
+
+so here we have : $$ \hat{\mu_I}=\frac{1}{n_i} \sum\limits_{j=1}^{n_i}y_{ij} = \bar{y_i}$$
+\end{alertblock}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{alertblock}{ANOVA : 1.1 case of a modeling with  : $\sum\alpha_i=0$}
+    \begin{itemize}
+        \item  \textbf{hypothesis} : $\sum\limits_{i=1}^{I}\alpha_i^*=0 $ \\
+          We notice that if we change $\mu^*\longrightarrow \mu^*+\delta$ and $\alpha^*\longrightarrow \alpha^*-\delta$ then : $\mu_i^*=(\mu^* + \delta)+(\alpha_i^*-\delta)$
+        \item \textbf{associated estimator} : $${argmin}_{(\mu,\alpha)\in \mathbb{R} x \mathbb{R}^I} \frac{1}{2} \sum\limits_{i=1}^I \sum\limits_{j=1}^{n_1}(y_{ij}-\mu - \alpha_i)^2$$
+        \item \textbf{Lagrangien} : $$\mathcal{L}(\mu,\alpha,\lambda)=\frac{1}{2} \sum\limits_{i=1}^I \sum\limits_{j=1}^{n_1}(y_{ij}-\mu - \alpha_i)^2 + \lambda \sum\limits_{i=1}^{I}\alpha_i=0 $$
+    \end{itemize}
+
+
+\end{alertblock}
+\end{frame}
+
+
+\begin{frame}
+\bigskip
+\bigskip
+\begin{center}{
+\LARGE\color{marron}
+\textbf{resolution of the optimization system:}
+\textbf{ }\\
+\vspace{0.5cm}
+}
+
+\color{marron}
+\end{center}
+
+
+%toutes les erreurs sont par rapport à ce systeme
+\begin{enumerate}
+        \item $(S_1)$ : \systeme{\sum\limits_{i=1}^{I}\hat{\alpha_i}=0 ,\frac{\partial \mathcal{L}}{\partial \mu}=0, \frac{\partial \mathcal{L}}{\partial \alpha_i}=0; \forall i}
+
+
+
+$\Leftrightarrow$  \\
+
+
+        \item $(S_1)$ : \systeme{\sum\limits_{i=1}^{I}\hat{\alpha_i}=0 ,n\hat{\mu}+ \sum\limits_{i=1}^I n_i\hat{\alpha_i}-n\bar{y_n}=0, \frac{\partial \mathcal{L}}{\partial \alpha_i}=0; \forall i}
+    \end{enumerate}
+
+% Remplacer la 3 eme equation par celle la n_{i_0} \hat{\mu} +n_{i_0} \hat{\alpha_i} = \bar{y_n}
+
+
+
+
+\end{frame}
+
+\begin{frame}
+\bigskip
+\bigskip
+\begin{center}{
+\LARGE\color{marron}
+\textbf{resolution of the optimization system:}
+\textbf{ }\\
+\vspace{0.5cm}
+}
+
+\color{marron}
+\end{center}
+
+
+%Ajuster système
+
+
+$\Leftrightarrow$  \\
+
+        \item $(S_1)$ : \systeme{\sum\limits_{i=1}^{I}\hat{\alpha_i}=0 ,\hat{\mu}+ \frac{1}{n}\sum\limits_{i=1}^I n_i\hat{\alpha_i}=\bar{y_n}, \frac{\partial \mathcal{L}}{\partial \alpha_i}=0; \forall i}
+        
+
+
+% Remplacer l'eq 3 du systeme par n_{i_0}(\hat{\mu}+\hat{\alpha_{i_0}}-\bar{y_{i_0}} +\hat{\lambda}=0
+
+
+\end{frame}
+
+\begin{frame}
+\bigskip
+\bigskip
+\begin{center}{
+\LARGE\color{marron}
+\textbf{resolution of the optimization system:}
+\textbf{ }\\
+\vspace{0.5cm}
+}
+
+\color{marron}
+\end{center}
+
+\vspace{0.5cm}
+
+\begin{center}
+\textbf{Joseph Salmon} \\
+\vspace{0.1cm}
+\url{http://josephsalmon.eu}\\
+\vspace{0.5cm}
+Université de Montpellier \\
+\end{center}
+
+\centering
+\includegraphics[width=0.13\textwidth]{Logo}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%       PLAN      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Table of Contents}
+\tableofcontents[hideallsubsections]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\AtBeginSection[]
+{
+\begin{frame}<beamer>{Table of Contents}
+\tableofcontents[currentsubsection,
+    hideothersubsections,
+    sectionstyle=show/shaded,
+]
+\end{frame}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\label{sec:introdcution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{A first example}
+\label{sub:un_premier_exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Display a theorem and talk about it}
+
+\vspace{0.4cm}
+
+\mytheorem{Theorem}
+{
+\begin{equation*}
+a^2 + b^2 = c^2
+\end{equation*}
+}
+
+\vspace{0.25cm}
+
+Here, the response vector $Y$ is \mybold{qualitative}.
+
+\vspace{0.25cm}
+
+\exple
+$\mathcal{Y} = \{\texttt{spam},  \texttt{ham}\}$ (\texttt{ham}=correct e-mail) or $\mathcal{Y}= \{0, 1, \dots,9\}$.
+
+The objective could be
+\begin{itemize}
+	\item create a classifier $\phi(x)$ that maps $x$ to one of the classes in $\mathcal{Y}$
+\end{itemize}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Double column when needed}
+\begin{columns}
+\begin{column}[T]{.48\textwidth}
+	\mybold{Bayes classifier is} optimal
+	\begin{equation*}
+	  \phi^*(x) = \argmax_{y\in \mathcal{Y}} P(Y=y|X=x)
+	\end{equation*}
+	for the loss  $l(y,y')=1_{y\neq y'}$.
+
+	\vspace{1cm}
+
+	One can always use  $\widehat{\phi}(x)$.
+\end{column}
+\begin{column}[T]{.48\textwidth}
+	\centering
+	\includegraphics[width=0.75\textwidth]{french-flag}
+
+	\vspace{1cm}
+
+	Alternatives:
+	\begin{itemize}
+		\item logistic regression / LDA
+		\item GAM
+		\item SVM
+	\end{itemize}
+	\vspace{1cm}
+
+\end{column}
+\end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{A second example}
+\label{sub:deuxiem_exmple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Empty}
+	... or so.
+
+
+	But note that
+	\only<2->{only creates this effect}%
+	\visible<3->{while visible create a different one}%
+	\pause
+	is also possible and is simple to use.
+	And a common issue is not using the percentage symbol ($\%$) enough !
+
+	\vspace{3cm}
+
+	But note that
+	\only<4->{only creates this effect}
+	\visible<5->{while visible create a different one}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+\label{sec:conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Lectures:}
+\begin{itemize}
+ \item[$\bullet$] \textbf{Joseph Salmon} :
+\begin{itemize}
+\visible<1->{\item current situation:  Professor at Université de Montpellier}
+\visible<2->{\item Previously: Paris Diderot-Paris 7, Duke University, Télécom ParisTech, University of Washington}
+\visible<3->{\item Research topics: high dimensional statistics, optimization, aggregation, images}
+\visible<4->{\item Bureau: 415, Bat. 9}
+
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Rapidement}
+\label{sub:rapidement}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Bibliographie}
+DO the biblio
+\end{frame}
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{document}
