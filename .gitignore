@@ -24,4 +24,4 @@ data
 
 # Mac OS X trash
 *.DS_Store
-
+.DS_Store
