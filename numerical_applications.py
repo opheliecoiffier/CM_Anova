@@ -84,7 +84,7 @@ for i, name in enumerate(df_bicycle.columns):
     print("Column", name)
     print(df_bicycle[df_bicycle.columns[i]].unique(), "\n")
 
-
+print(df_bicycle.info)
 
 ##################################
 # Data visualization
@@ -153,6 +153,7 @@ df_bicycle.groupby([df_bicycle.index.weekday, df_bicycle.index.hour])[
 plt.legend(labels=['Monday', "Tuesday", "Wednesday",
                    "Thursday", "Friday", "Saturday", "Sunday"])
 plt.ylabel("Number of accidents"); plt.xlabel("Hours")
+plt.savefig(os.path.join(script_dir, "images", "number_accidents_day.pdf"))
 plt.show()
 
 ######################################################
@@ -333,10 +334,12 @@ class Treatment_test_simulation():
             plt.gca()
             plt.axvline(x=ref_, linewidth=2, color='r',
                         label=r'$reference\ value: \hat\mu_B - \hat\mu_A$')
-            plt.title(r"Histogram of the density for the statistic $\hat\mu_B - \hat\mu_A")
+            plt.title(r"Histogram of the density for the statistic $\hat\mu_B - \hat\mu_A$")
             plt.ylabel("density")
             plt.xlabel("Test values for each permutation")
             plt.legend()
+            name = "rejet.pdf" if pval < .05 else "not_rejet.pdf"
+            plt.savefig(os.path.join(script_dir, 'images', name))
             plt.show()
         return pval, ref_
 
