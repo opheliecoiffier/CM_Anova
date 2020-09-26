@@ -6,6 +6,7 @@ from download import download
 import statsmodels.api as sm
 import scipy as sp
 from statsmodels.formula.api import ols
+import numpy as np
 sns.set_palette("colorblind")
 sns.set()
 
@@ -22,14 +23,13 @@ df = df.loc[df["nom_com"].isin(["MONTPELLIER","NIMES", "TARBES", "CASTRES"])]
 df = df.loc[df["polluant"].isin(["O3"])]
 
 #violins : descriptive analysis
-sns.catplot(x=df.columns[1], y="valeur_originale",
+fig = sns.catplot(x=df.columns[1], y="valeur_originale",
          data=df, kind="violin", legend=False)
 plt.title("O3 by city")
 plt.xlabel("cities")
 plt.ylabel("Concentration of O3")
-plt.legend(loc=1)
 plt.tight_layout()
-
+fig.savefig('O3_by_city.pdf')
 #%%
 #descriptive analysis
 print(df.describe())
@@ -42,8 +42,8 @@ pollution = sm.stats.anova_lm(poll, typ=2)
 print(pollution)
 fig, ax = plt.subplots()
 _, (__, ___, r) = sp.stats.probplot(poll.resid, plot=ax, fit=True)
+fig.savefig('verification_of_residues.pdf')
 #%%
-import numpy as np
 df_mois = pd.read_csv('Mesure_journaliere_Region_Occitanie_Polluants_Principaux.csv', index_col="date_debut")
 df_mois = df_mois.loc[:, ["polluant", 'nom_com', "valeur_originale"]]
 df_mois = df_mois.loc[df_mois["nom_com"].isin(["MONTPELLIER","NIMES", "TARBES", "CASTRES"])]
@@ -75,7 +75,8 @@ y4 = np.ones(12)
 for i in x :
     tab4 = tab.loc[tab.index.month==i]
     y4[i-1] = np.mean(tab4['valeur_originale']) 
-    
+   
+fig = plt.figure()
 plt.plot(x, y1, label="Tarbes")
 plt.plot(x, y2, label="Nîmes")
 plt.plot(x, y3, label="Montpellier")
@@ -85,3 +86,4 @@ plt.xlabel("month")
 plt.ylabel("Concentration of O3")
 plt.legend()
 plt.tight_layout()
+fig.savefig("Mean_of_O3.pdf")
