@@ -415,7 +415,7 @@ print(df.describe())
 # Look at the mean of O3 pollution by month and by city
 ########################################################
 
-df_mois = pd.read_csv('Mesure_journaliere_Region_Occitanie_Polluants_Principaux.csv', index_col="date_debut")
+df_mois = pd.read_csv(path_target, index_col="date_debut")
 df_mois = df_mois.loc[:, ["polluant", 'nom_com', "valeur_originale"]]
 df_mois = df_mois.loc[df_mois["nom_com"].isin(["MONTPELLIER","NIMES", "TARBES", "CASTRES"])]
 df_mois = df_mois.loc[df_mois["polluant"].isin(["O3"])]
@@ -449,7 +449,7 @@ for i in x :
    
 fig = plt.figure()
 plt.plot(x, y1, label="Tarbes")
-plt.plot(x, y2, label="Nîmes")
+plt.plot(x, y2, label="Nimes")
 plt.plot(x, y3, label="Montpellier")
 plt.plot(x, y4, label="Castres")
 plt.title("Mean of O3 concentration by month")

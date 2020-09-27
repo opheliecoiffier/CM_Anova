@@ -8,6 +8,7 @@
 *.snm
 *.gz
 *.toc
+*.vrb
 
 
 # jupyter files
