@@ -2,6 +2,10 @@
 \usepackage[french,english]{babel}
 \usepackage{./OrganizationFiles/tex/sty/beamer_js}
 \usepackage{./OrganizationFiles/tex/sty/shortcuts_js}
+
+% % package for JS compilation:
+% \usepackage{/home/jo/Documents/OrganizationFiles/tex/sty/beamer_js}
+% \usepackage{/home/jo/Documents/OrganizationFiles/tex/sty/shortcuts_js}
 \usepackage{csquotes}
 
 \graphicspath{{./images/}}
@@ -25,7 +29,7 @@
 \bigskip
 \begin{center}{
 \LARGE\color{marron}
-\textbf{HMMA 307 : Advanced Linear Modeling}
+\textbf{HMMA 307 : \\ Advanced Linear Modeling}
 \textbf{ }\\
 \vspace{0.5cm}
 }
@@ -78,7 +82,7 @@ Université de Montpellier \\
   \begin{subfigure}[b]{0.49\textwidth}
 \includegraphics[width=\textwidth]{Mean_of_O3.pdf}
 \vspace{.35cm}
-\caption{Mean of O3 by month for four cities.}
+\caption{Mean of O3 by month for four cities. \phantom{used to allow spacing alignement between images}}
     \label{fig:f2}
   \end{subfigure}
 \end{figure}
@@ -91,9 +95,8 @@ Université de Montpellier \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Statistical model}
-\begin{alertblock}{Model equation}
-\[y_{ij}=\mu_i^*+\varepsilon_{ij}\]
-\end{alertblock}
+\mytheorem{Model equation}
+{\[y_{ij}=\mu_i^*+\varepsilon_{ij}\]}
 
 \medskip
 
@@ -122,7 +125,7 @@ and $\cov(\epsilon_{ij},\varepsilon_{i'j'})=\sigma^2 \delta_{ii'} \delta_{jj'} $
 
 \begin{verbatim}
 poll = ols('valeur_originale ~ C(nom_com)',data=df).fit()
-sm.stats.anova_lm(poll, typ=2) 
+sm.stats.anova_lm(poll, typ=2)
 _, (__, ___, r) = sp.stats.probplot(poll.resid, fit=True)
 \end{verbatim}
 
@@ -151,7 +154,7 @@ _, (__, ___, r) = sp.stats.probplot(poll.resid, fit=True)
     \label{fig:check_res}
 \end{figure}
 \end{column}
-\end{columns}    
+\end{columns}
 \end{Framecode}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -159,24 +162,24 @@ _, (__, ___, r) = sp.stats.probplot(poll.resid, fit=True)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \rem
-If we have an estimator for $\mu^*$ and $\alpha_i^*$ for all $i=1,\dots I$, noted $\hat{\mu}$ and $\hat{\alpha}$ : 
+If we have an estimator for $\mu^*$ and $\alpha_i^*$ for all $i=1,\dots I$, noted $\hat{\mu}$ and $\hat{\alpha}$ :
 
 \[\hat{\mu}_i=  \hat{\mu} +  \hat{\alpha_i}  \]
 
-and 
+and
 
 \begin{equation}\label{eq:sep}
 (\hat{\mu}_1, \dots, \hat{\mu}_I) \in \argmin_{(\mu_1,\dots,\mu_I)\in \mathbb{R}^I} \frac{1}{2} \sum_{i=1}^I \sum_{j=1}^{n_i}(y_{ij}-\mu_i)^2
 \end{equation}
 
 \visible<2->{
-\begin{alertblock}{}
+% \begin{exampleblock}{}
 Thanks to the separability principle:
 \[\min_{(x_1,\dots,x_d)}f(x_1,\dots,x_d) \Longleftrightarrow \min_{x_j} g_j(x_j), \ j=1,\dots,d. \]
 
 we have
 \[\hat{\mu}_i=\frac{1}{n_i} \sum_{j=1}^{n_i}y_{ij} = \bar{y}_{i,:}.\]
-\end{alertblock}
+% \end{exampleblock}
 }
 \end{frame}
 
@@ -191,8 +194,14 @@ we have
 
 Notice that if we change $\mu^*\longrightarrow \mu^*+\delta$ and $\alpha^*_i\longrightarrow \alpha^*_i-\delta$ then : $\mu_i^*=(\mu^* + \delta)+(\alpha_i^*-\delta)$
 
+\vspace{0.5cm}
+
+
 \begin{itemize}\setlength{\itemsep}{5pt}
 \visible<1->{\item  \textbf{hypothesis} : $\sum\limits_{i=1}^{I}\alpha_i^*=0 $ \ie $\alpha_I^*=-\sum\limits_{i=1}^{I-1}\alpha_i^*$\\}
+
+\vspace{1.2cm}
+
 \visible<2->{\item \textbf{associated estimator} : $$\argmin\limits_{(\mu,\alpha)\in \mathbb{R} \times \mathbb{R}^I} \frac{1}{2} \sum\limits_{i=1}^I \sum\limits_{j=1}^{n_1}(y_{ij}-\mu - \alpha_i)^2$$}
 \visible<3->{\item \textbf{Lagrangian} : $$\mathcal{L}(\mu,\alpha,\lambda)=\frac{1}{2} \sum\limits_{i=1}^I \sum\limits_{j=1}^{n_i}(y_{ij}-\mu - \alpha_i)^2 + \lambda \sum\limits_{i=1}^{I}\alpha_i $$}
 \end{itemize}
@@ -222,7 +231,7 @@ n_{i_0} \hat{\mu} +n_{i_0} \hat{\alpha_{i_0}} = n_{i_0}\bar{y}_{i_0,:} - \hat\la
 \begin{cases}
 \displaystyle\sum_{i=1}^{I}\hat{\alpha}_i=0  \\
 \hat{\mu}+\frac{1}{n} \sum\limits_{i=1}^I n_i \hat{\alpha}_i=\bar{y}_n \\
-n_{i_0}(\hat{\mu}+\hat{\alpha}_{i_0}-\bar{y}_{i_0,:}) +\hat{\lambda}=0 
+n_{i_0}(\hat{\mu}+\hat{\alpha}_{i_0}-\bar{y}_{i_0,:}) +\hat{\lambda}=0
 \end{cases}
 \end{aligned}
 \]
@@ -236,7 +245,7 @@ n_{i_0}(\hat{\mu}+\hat{\alpha}_{i_0}-\bar{y}_{i_0,:}) +\hat{\lambda}=0
 \begin{frame}{Resolution of the optimization system}
 
 \vspace{0.5cm}
-We have :  
+We have :
 $\sum\limits_{i_0 =1}^{I} n_{i_0}(\hat{\mu}+\hat{\alpha}_{i_0}-\bar{y}_{i_0,:}) +I\hat{\lambda}=0$, so for $i_0=1,\cdots,I$, so we get
 
 \visible<2->{
@@ -245,7 +254,7 @@ $\sum\limits_{i_0 =1}^{I} n_{i_0}(\hat{\mu}+\hat{\alpha}_{i_0}-\bar{y}_{i_0,:}) 
 & \sum_{i_0=1}^{I}n_{i_0}(\hat{\mu}+\hat{\alpha}_{i_0}-\bar{y}_{i_0}) + I\hat{\lambda}=0 \\
 \Longleftrightarrow\quad & n\hat{\mu}+ \sum\limits_{i_0=1}^{I} n_{i_0}\hat{\alpha}_{i_0}- \sum\limits_{i_0=1}^{I} n_{i_0}\bar{y}_{i_0,:}+I\hat{\lambda}=0 \\
 \Longleftrightarrow\quad & n\hat{\mu}+ \sum\limits_{i_0=1}^{I} n_{i_0}\hat{\alpha}_{i_0}- n\bar{y}_n+I\hat{\lambda}=0  \\
-\Longleftrightarrow\quad & I\hat{\lambda}=0 \Leftrightarrow \hat{\lambda}=0 
+\Longleftrightarrow\quad & I\hat{\lambda}=0 \Leftrightarrow \hat{\lambda}=0
 \end{aligned}
 \]}
 
@@ -259,25 +268,22 @@ $\sum\limits_{i_0 =1}^{I} n_{i_0}(\hat{\mu}+\hat{\alpha}_{i_0}-\bar{y}_{i_0,:}) 
 
 \begin{frame}
 
-\begin{alertblock}{Results: }
-    \begin{itemize}
+\mytheorem{Results}
+{    \begin{itemize}
         \item $\hat{\alpha}_{i_0} + \hat{\mu}= \bar{y}_{i_0,:}$
         \item $\hat{\mu}=\dfrac{1}{I}\sum\limits_{i_0=1}^{I} \bar{y}_{i_0,:}$
     \end{itemize}
 
-Meaning that 
+Meaning that
 \[\hat{\alpha}_{i_0}=\bar{y}_{i_0,:}-\frac{1}{I} \sum\limits_{i_0=1}^{I} \bar{y}_{i_0,:}.\]
+}
 
-\end{alertblock}
-
-\begin{alertblock}{Notice: }
+\rem
     \begin{itemize}
         \item $ \hat{\mu} \ne \frac{1}{n}\sum\limits_{i=1}^{I}\sum\limits_{j=1}^{n_i}y_{ij}=\bar{y}_n$
         \item It might be different if there are $ i,i'$ such that: $n_i \ne n_{i'}$
     \end{itemize}
 
-
-\end{alertblock}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -290,7 +296,7 @@ Meaning that
 
     \begin{itemize}
         \item  \textbf{hypothesis} : \[\sum_{i=1}^{I}n_i \alpha_i=0\]\\
-         
+
         \item \textbf{associated estimator} : \[\argmin\limits_{(\mu,\alpha)\in \mathbb{R} \times \mathbb{R}^I} \frac{1}{2} \sum_{i=1}^I \sum_{j=1}^{n_i}(y_{ij}-\mu - \alpha_i)^2\]
         \item \textbf{Lagrangian} : \[\mathcal{L}(\mu,\alpha,\lambda)=\frac{1}{2} \sum_{i=1}^I \sum_{j=1}^{n_i}(y_{ij}-\mu - \alpha_i)^2 + \lambda \sum_{i=1}^{I}n_i\alpha_i \]
     \end{itemize}
@@ -310,13 +316,13 @@ Meaning that
 \begin{cases}
 &  \sum\limits_{i=1}^{I}n_i \hat{\alpha}_i=0 \\
 &  \frac{\partial \mathcal{L}}{\partial \mu}=0 \\
-&  \frac{\partial \mathcal{L}}{\partial \alpha_{i_0}}=0\ \forall i_0 
+&  \frac{\partial \mathcal{L}}{\partial \alpha_{i_0}}=0\ \forall i_0
 \end{cases}
 \quad&\Longleftrightarrow\quad
 \begin{cases}
 &  \sum\limits_{i=1}^{I}n_i\hat{\alpha}_i=0 \\
 &  n\hat{\mu}+ \sum\limits_{i=1}^I n_i\hat{\alpha}_i-n\bar{y}_n=0 \\
-&  \hat{\mu}+\hat{\alpha}_{i_0}-\bar{y}_{i_0,:}+\hat{\lambda} = 0, \forall{i_0} 
+&  \hat{\mu}+\hat{\alpha}_{i_0}-\bar{y}_{i_0,:}+\hat{\lambda} = 0, \forall{i_0}
 \end{cases}\\
 & \Longleftrightarrow\quad
 \begin{cases}
@@ -336,21 +342,17 @@ Meaning that
 
 \begin{frame}
 
-\begin{alertblock}{Results : }
+\mytheorem{Results}{
     \begin{itemize}
-        \item We multiply the third line of the equation by $n_{i_0}$ then we add them up for $i_0$ in $1$ to $I$. We finally obtain $\hat{\lambda}=0$, 
+        \item We multiply the third line of the equation by $n_{i_0}$ then we add them up for $i_0$ in $1$ to $I$. We finally obtain $\hat{\lambda}=0$,
         \item $\hat{\mu}=\bar{y}_n$
     \end{itemize}
 Meaning that:
 \[\hat{\alpha}_{i_0}=\bar{y}_{i_0,:}- \bar{y}_{n}.\]
-\end{alertblock}
+}
 
 
-\begin{alertblock}{Notice : }
-
-The next case to study will be: $$ \alpha_{i_0}=0$$
-
-\end{alertblock}
+\rem The next case to study will be: $$\alpha_{i_0}=0$$
 
 \end{frame}
 
@@ -386,7 +388,7 @@ The next case to study will be: $$ \alpha_{i_0}=0$$
     \includegraphics[width=\textwidth, clip, trim={0cm 0.2cm 0cm .5cm}]{not_rejet.pdf}
     \caption{\tiny{$\mu_A^*=2, \ \mu_B^*=2.5$, we don't reject the equality.}}
 \end{figure}
-	
+
 \end{column}
 \end{columns}
 \end{frame}
